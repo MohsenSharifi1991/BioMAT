@@ -1,0 +1,16 @@
+{
+  "selected_sensors": ["foot","shank","thigh"],
+  "selected_imu_features": ["Accel_X","Accel_Y", "Accel_Z",
+                        "Gyro_X", "Gyro_Y", "Gyro_Z"],
+  "selected_opensim_labels": ["hip_flexion_r", "knee_angle_r", "ankle_angle_r"],
+  "classification": false,
+  "target_padding_length": 256,
+
+  "tsai_d_model": 128,
+  "tsai_n_heads": 16,
+  "tsai_d_ff": 256,
+  "tsai_n_layers": 3,
+  "tsai_activation": "gelu",
+  "tsai_res_dropout_p": 0.1,
+  "tsai_fc_dropout_p": 0.5
+}

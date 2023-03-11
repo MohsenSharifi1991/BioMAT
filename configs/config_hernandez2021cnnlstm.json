@@ -1,0 +1,32 @@
+{
+  "selected_sensors": ["foot","shank","thigh"],
+  "selected_imu_features": ["Accel_X","Accel_Y", "Accel_Z",
+                        "Gyro_X", "Gyro_Y", "Gyro_Z"],
+  "selected_opensim_labels": ["hip_flexion_r", "knee_angle_r", "ankle_angle_r"],
+  "target_padding_length": 256,
+  "classification": false,
+
+  "EncoderCNN_conv_l1_in_channel" : null,
+  "EncoderCNN_conv_l1_out_channel" : 16,
+  "EncoderCNN_conv_l1_kernel_size" : [10, 3],
+  "EncoderCNN_l1_maxpool" : 2,
+  "EncoderCNN_conv_l1_dropout": 0.2,
+
+  "EncoderCNN_conv_l2_in_channel" : null,
+  "EncoderCNN_conv_l2_out_channel" : 32,
+  "EncoderCNN_conv_l2_kernel_size" : [10, 3],
+  "EncoderCNN_l2_maxpool" : 2,
+  "EncoderCNN_conv_l2_dropout": 0.2,
+
+  "EncoderCNN_cnn_fc1_in_feature": null,
+  "EncoderCNN_cnn_fc1_out_feature": null,
+  "EncoderCNN_fc1_dropout": 0.2,
+
+  "DecoderLSTM_input_size": null,
+  "DecoderLSTM_hidden_size": 128,
+  "DecoderLSTM_num_layers": 2,
+  "DecoderLSTM_dropout_p": 0.2,
+
+  "CNNLSTM_fc1_in_feature": null,
+  "output_size1": 1600
+}

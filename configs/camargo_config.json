@@ -23,17 +23,15 @@
   "opensim_filter": false,
   "imu_filter": false,
 
-  "load_model": true,
+  "load_model": false,
   "save_model": false,
-  "freeze_model": false,
-  "tuning": false,
+  "tuning": true,
   "individual_plot": false,
 
 
 
   "train_subjects": ["AB06", "AB07", "AB08", "AB09", "AB10", "AB11", "AB12", "AB13", "AB14", "AB15", "AB16", "AB17", "AB18",
-"AB19", "AB20", "AB21"
-  ],
+"AB19", "AB20", "AB21"],
   "model_train_activity": ["g1","g2","ra", "rd", "sa", "sd"],
   "train_activity": ["levelground1","levelground2","rampascent", "rampdescent","stairascent","stairdescent"],
   "test_subjects": ["AB23", "AB24", "AB25"],
@@ -60,11 +58,6 @@
   "tsai_fc_dropout_p": 0.5,
 
   "learning_rate": 0.001,
-  "lr_scheduler": false,
-  "lr_scheduler_factor": 0.1,
-  "lr_scheduler_patience": 10,
-  "early_stopping": false,
-  "earlystopping_patience": 30,
   "n_epoch": 1,
   "batch_size": 50,
   "loss": "MSE",

@@ -34,10 +34,9 @@ def fetch_data(config):
         kihadataset_test['x'],
         kihadataset_test['y'], kihadataset_test['labels'])
     train_dataset = DataSetBuilder(kihadataset_train['x'], kihadataset_train['y'], kihadataset_train['labels'],
-                                   transform_method=config['data_transformer'], scaler=None, noise=None)
+                                   transform_method=config['data_transformer'], scaler=None)
     test_dataset = DataSetBuilder(kihadataset_test['x'], kihadataset_test['y'], kihadataset_test['labels'],
-                                  transform_method=config['data_transformer'], scaler=train_dataset.scaler,
-                                  noise=None)
+                                  transform_method=config['data_transformer'], scaler=train_dataset.scaler)
     test_dataloader = DataLoader(dataset=test_dataset, batch_size=config['batch_size'], shuffle=False)
     return test_dataloader, kihadataset_test
 
@@ -106,7 +105,6 @@ if st.sidebar.button('Predict'):
     with st.spinner('Prediction ...'):
         y_pred, y_true, loss = fetch_predictions(model)
     st.success('Prediction is Completed!')
-    st.write('plot ...')
     subject = 'AB' + str(selected_subject)
     fig = plot_kinematic_predictions(y_true, y_pred, kihadataset_test['labels'], subject,
                                  selected_activities=selected_activities, selected_index_to_plot=index_to_plot)

@@ -1,13 +1,12 @@
 import torch
+import numpy as np
 from sklearn.model_selection import KFold
 from torch.utils.data import DataLoader
-
 from dataset import DataSet
 from datasetbuilder import DataSetBuilder
 from evaluation import Evaluation
 from train import Train
-from visualization.wandb_plot import wandb_plot_true_pred, wandb_plotly_true_pred
-import numpy as np
+from visualization.wandb_plot import wandb_plotly_true_pred
 
 
 class ParameterTuning:
@@ -78,18 +77,14 @@ class ParameterTuning:
             test_dataloader = DataLoader(dataset=test_dataset, batch_size=self.config['batch_size'],
                                          shuffle=False, num_workers= 0, pin_memory=False)
 
-            training_handler = Train(self.config, train_dataloader=train_dataloader, test_dataloader=test_dataloader,
-                                     early_stopping=self.config['early_stopping'], lr_scheduler=self.config['lr_scheduler'])
+            training_handler = Train(self.config, train_dataloader=train_dataloader, test_dataloader=test_dataloader)
             y_pred, y_true = training_handler.run_training_testing()
             y_true = y_true.detach().cpu().clone().numpy()
             y_pred = y_pred.detach().cpu().clone().numpy()
-            # wandb_plotly_true_pred(y_true, y_pred, self.config['selected_opensim_labels'], 'validation')
             self.y_pred_sfold.append(y_pred)
             self.y_true_sfold.append(y_true)
             del y_pred, y_true, train_x, train_y, test_x, test_y, train_dataset, test_dataset, train_dataloader, test_dataloader, training_handler, dataset_handler
             torch.cuda.empty_cache()
-        # self.y_pred_sfold = torch.cat(self.y_pred_sfold, dim=0)
-        # self.y_true_sfold = torch.cat(self.y_true_sfold, dim=0)
         self.y_pred_sfold = np.concatenate(self.y_pred_sfold, axis=0)
         self.y_true_sfold = np.concatenate(self.y_true_sfold, axis=0)
 

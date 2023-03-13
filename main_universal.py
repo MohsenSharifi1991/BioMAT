@@ -1,19 +1,20 @@
-# load data set!
-from torch.utils.data.dataloader import DataLoader
+import wandb
+import torch
 import numpy as np
+import os
+from torch.utils.data.dataloader import DataLoader
 from tslearn.metrics.cysax import LinearRegression
 from config import get_config_universal
 from dataset import DataSet
 from datasetbuilder import DataSetBuilder
-import os
 from evaluation import Evaluation
 from parametertuning import ParameterTuning
 from test import Test
 from train import Train
 from utils.utils import get_activity_index_test, get_model_name_from_activites
-from visualization.wandb_plot import wandb_plotly_true_pred, wandb_plotly_true_pred_window
-import wandb
-import torch
+from visualization.wandb_plot import wandb_plotly_true_pred
+
+
 wandb.init(project='CAMARGO_Dataset_Transformer')
 
 
@@ -73,8 +74,7 @@ def run_main():
                                                                                                           config['test_activity'])
             model_file = config['model_name'] + '_' + "".join(config['model_train_activity']) + \
                          '_' + "".join(config['model_test_activity']) + '.pt'
-            training_handler = Train(config, train_dataloader=train_dataloader, test_dataloader=test_dataloader,
-                                     early_stopping=config['early_stopping'], lr_scheduler=config['lr_scheduler'])
+            training_handler = Train(config, train_dataloader=train_dataloader, test_dataloader=test_dataloader)
             model = training_handler.run_training()
             if save_model:
                 torch.save(model, os.path.join('./caches/trained_model/', model_file))
@@ -99,4 +99,3 @@ def run_main():
 
 if __name__ == '__main__':
     run_main()
-    a =1

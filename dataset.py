@@ -117,8 +117,8 @@ class DataSet:
                     ll = ll_temp
                 elif ll['trialType'][0] =='ramp':
                     ll_temp['trialType2'] = ll_temp['trialType2'].replace({'idle': 'idle',
-                              'walk-rampascent': 'rampascent', 'rampascent':'rampascent','rampascent-walk': 'rampascent',
-                              'walk-rampdescent': 'rampdescent', 'rampdescent':'rampdescent','rampdescent-walk': 'rampdescent'})
+                              'walk-rampascent': 'rampascent', 'rampascent': 'rampascent', 'rampascent-walk': 'rampascent',
+                              'walk-rampdescent': 'rampdescent', 'rampdescent': 'rampdescent', 'rampdescent-walk': 'rampdescent'})
                     ll = ll_temp
                 elif ll['trialType'][0] == 'stair':
                     ll_temp['trialType2'] = ll_temp['trialType2'].replace({'idle': 'idle',

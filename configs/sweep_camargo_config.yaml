@@ -25,7 +25,6 @@
 
   "load_model": false,
   "save_model": false,
-  "freeze_model": false,
   "tuning": false,
   "individual_plot": false,
 
@@ -214,7 +213,7 @@
     "n_epoch":
       {
         "distribution": "categorical",
-        "values": [25]
+        "values": [25, 2]
       },
     "batch_size":
       {

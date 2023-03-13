@@ -89,8 +89,7 @@ def run_main():
             if load_model and os.path.isfile('./caches/trained_model/'+model_file):
                 model = torch.load(os.path.join('./caches/trained_model/', model_file))
             else:
-                training_handler = Train(config, train_dataloader=train_dataloader, test_dataloader=test_dataloader,
-                                         early_stopping=config['early_stopping'], lr_scheduler=config['lr_scheduler'])
+                training_handler = Train(config, train_dataloader=train_dataloader, test_dataloader=test_dataloader)
                 model = training_handler.run_training()
                 if save_model:
                     torch.save(model, os.path.join('./caches/trained_model/', model_file))

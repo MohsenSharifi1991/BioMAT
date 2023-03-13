@@ -21,7 +21,6 @@ def plot_kinematic_predictions(y_true, y_pred, label, selected_subject, selected
         subject_to_evaluate = selected_subject
         subject_index = get_subject_index_test(label, subject_to_evaluate)
         activity_index = get_activity_index_test(label, activity_to_evaluate)
-        print(activity_index)
         selected_index = list(set(subject_index) & set(activity_index))
         y_pred_to_plot = y_pred[selected_index][selected_index_to_plot]
         y_true_to_plot = y_true[selected_index][selected_index_to_plot]

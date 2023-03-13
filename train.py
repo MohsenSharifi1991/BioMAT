@@ -41,7 +41,6 @@ class Train:
 
     def run_training(self):
         self.setup_model()
-        # self.model.apply(weight_init)
         self.trainer = self.setup_trainer()
         losses = []
         if self.test_dataloader:

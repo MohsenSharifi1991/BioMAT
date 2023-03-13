@@ -17,8 +17,6 @@ class DataSet:
         self.selected_trial_type = config['selected_trial_type']
         self.selected_activity_label = config['selected_activity_label']
         self.segmentation_method = config['segmentation_method']
-        if self.config['gc_dataset']:
-            self.segmentation_method = 'zeropadding'
         self.resample = config['resample']
         self.n_sample = len(self.y)
         if load_dataset:
@@ -54,7 +52,7 @@ class DataSet:
 
     def run_segmentation(self, x, y, labels):
         if self.segmentation_method == 'fixedwindow':
-            segmentation_handler = FixWindowSegmentation(x, y, labels, winsize=self.config['target_padding_length'], overlap=0.5, start_over=True)
+            segmentation_handler = FixWindowSegmentation(x, y, labels, winsize=self.config['target_padding_length'], overlap=0.5)
             self.x, self.y, self.labels = segmentation_handler._run_segmentation()
 
         if self.config['opensim_filter']:
@@ -71,7 +69,6 @@ class DataSet:
         updated_x = []
         update_y = []
         updated_label = []
-        s = 0
         for ll, xx, yy, in zip(label, x, y):
             if self.config['dataset_name']=='camargo' and ll['trialType'].isin(self.selected_trial_type).all() and self.selected_activity_label == ['all_idle']:
                 l_temp = ll[ll['trialType'].isin(self.selected_trial_type)]
@@ -100,7 +97,7 @@ class DataSet:
                     # get the turn index if it's there
                     turn1_indx = ll_temp[ll_temp['Label'] == 'turn1'].index.values
                     turn2_indx = ll_temp[ll_temp['Label'] == 'turn2'].index.values
-                    # check which turn is turn 1
+                    # check which turn is turn first, if turn 1 is first, skip, otherwise switch turn 2 with turn 1
                     if turn1_indx[0]<turn2_indx[0]:
                         pass
                     else:
@@ -134,7 +131,7 @@ class DataSet:
                 update_selected_activity_label = [i for i in update_selected_activity_label if
                                                   i not in ['idle']]
                 for activity_label in update_selected_activity_label:
-                    # if trial type == levelground ->save stand-walk and walk into one trial and walk-stand into another trial. all samples would be continues
+                    # if trial type == levelground ->save stand-walk and walk into one trial and walk-stand into another trial. All samples would be continued
                     # if ramp or stair--> save trial for ascent and descent individually
                     if isinstance(activity_label, str):
                         l_temp = ll[(ll['trialType'].isin(self.selected_trial_type)) & (ll['trialType2']==activity_label)]
@@ -151,22 +148,9 @@ class DataSet:
                 l_temp_index = l_temp.index.values
                 xx_temp = xx[l_temp_index]
                 yy_temp = yy[l_temp_index]
-
                 updated_x.append(xx_temp)
                 update_y.append(yy_temp)
                 updated_label.append(l_temp)
-            elif self.config['dataset_name']=='kiha':
-                l_temp = ll[(ll['trialType'].isin(self.selected_trial_type))]
-                l_temp_index = l_temp.index.values
-                xx_temp = xx[l_temp_index]
-                yy_temp = yy[l_temp_index]
-
-
-                updated_x.append(xx_temp)
-                update_y.append(yy_temp)
-                updated_label.append(l_temp)
-            # else:
-            #     continue
         return updated_x, update_y, updated_label
 
     def concatenate_data(self):

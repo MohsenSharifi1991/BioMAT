@@ -4,7 +4,7 @@ import numpy as np
 
 
 class FixWindowSegmentation:
-    def __init__(self, imu_signal, ik_signal, labels, winsize, overlap, start_over=False):
+    def __init__(self, imu_signal, ik_signal, labels, winsize, overlap):
 
         self.imu_signal = imu_signal
         self.ik_signal = ik_signal
@@ -14,8 +14,7 @@ class FixWindowSegmentation:
         self.overlap = overlap
         self.x = []
         self.y = []
-        self.cach_dir = "./caches/segmentation"
-        self.start_over = start_over
+
 
     def fixsize_sliding_window(self, data):
         step = round(self.overlap * self.winsize)
@@ -53,16 +52,9 @@ class FixWindowSegmentation:
         self.updated_general_labels = labels_segmented
 
     def _run_segmentation(self):
-        segmentation_file_path = os.path.join(self.cach_dir, "segmentation_"+ str(self.winsize)+".p")
-        if not os.path.exists(segmentation_file_path) or self.start_over:
-            self.run_imu_segmentation()
-            self.run_ik_segmentation()
-            self.run_label_segmentation()
-            with open(segmentation_file_path, 'wb') as f:
-                pickle.dump([self.x, self.y, self.updated_general_labels], f, protocol=pickle.HIGHEST_PROTOCOL)
-        else:
-            with open(segmentation_file_path, 'rb') as f:
-                self.x, self.y, self.updated_general_labels = pickle.load(f)
+        self.run_imu_segmentation()
+        self.run_ik_segmentation()
+        self.run_label_segmentation()
         return self.x, self.y, self.updated_general_labels
 
     def pad_along_axis(self, array, target_length, axis=0):

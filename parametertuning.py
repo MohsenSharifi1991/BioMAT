@@ -70,13 +70,13 @@ class ParameterTuning:
                 test_dataset['y'], test_dataset['labels'])
 
             train_dataset = DataSetBuilder(train_dataset['x'], train_dataset['y'], train_dataset['labels'],
-                                           transform_method=self.config['data_transformer'], scaler=None, noise=None,
-                                           classification=self.config['classification'])
-            train_dataloader = DataLoader(dataset=train_dataset, batch_size=self.config['batch_size'], shuffle=True, num_workers= 0, pin_memory=False)
+                                           transform_method=self.config['data_transformer'], scaler=None)
+            train_dataloader = DataLoader(dataset=train_dataset, batch_size=self.config['batch_size'],
+                                          shuffle=True, num_workers= 0, pin_memory=False)
             test_dataset = DataSetBuilder(test_dataset['x'], test_dataset['y'], test_dataset['labels'],
-                                          transform_method=self.config['data_transformer'], scaler=train_dataset.scaler,
-                                          noise=None, classification=self.config['classification'])
-            test_dataloader = DataLoader(dataset=test_dataset, batch_size=self.config['batch_size'], shuffle=False, num_workers= 0, pin_memory=False)
+                                          transform_method=self.config['data_transformer'], scaler=train_dataset.scaler)
+            test_dataloader = DataLoader(dataset=test_dataset, batch_size=self.config['batch_size'],
+                                         shuffle=False, num_workers= 0, pin_memory=False)
 
             training_handler = Train(self.config, train_dataloader=train_dataloader, test_dataloader=test_dataloader,
                                      early_stopping=self.config['early_stopping'], lr_scheduler=self.config['lr_scheduler'])

@@ -8,7 +8,7 @@ import torch
 
 
 class DataSetBuilder(Dataset):
-    def __init__(self, x, y, labels, transform_method=None, scaler=None, noise=None, classification=None):
+    def __init__(self, x, y, labels, transform_method=None, scaler=None):
         self.x = x
         self.y = y
         self.labels = labels
@@ -16,11 +16,7 @@ class DataSetBuilder(Dataset):
 
         self.transform_method = transform_method
         self.scaler = scaler
-        self.noise = noise
-        self.classification = classification
         self._preprocess()
-        if self.classification:
-            self._run_label_encoding()
         self.n_sample = len(y)
 
         # x = np.transpose(self.x, (0, 2, 1))
@@ -36,8 +32,6 @@ class DataSetBuilder(Dataset):
     def _preprocess(self):
         if self.transform_method['data_transformer_method'] is not None:
             self._run_transform()
-        if self.noise is not None:
-            self._run_noise()
 
     def _run_transform(self):
         transform_handler = Transformation(method=self.transform_method['data_transformer_method'], by=self.transform_method['data_transformer_by'])
@@ -51,7 +45,4 @@ class DataSetBuilder(Dataset):
         return self.n_sample
 
     def __getitem__(self, item):
-        if self.classification:
-            return self.x[item], self.y[item], self.y_label[item]
-        else:
-            return self.x[item], self.y[item]
+        return self.x[item], self.y[item]

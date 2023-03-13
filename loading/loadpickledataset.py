@@ -4,12 +4,16 @@ import pickle
 
 class LoadPickleDataSet:
     def __init__(self, config):
+        '''
+        This class loads and processes a dataset from a pickle file. The class takes a configuration dictionary as input,
+        which contains various parameters such as the file path, the name of the dataset, and the selected sensors, selected_imu_features, and selected_opensim_labels.
+        :param config:
+        '''
         self.dl_dataset_path = config['dl_dataset_path']
         self.dataset_name = config['dl_dataset']
         self.selected_sensors = config['selected_sensors']
         self.selected_imu_features = config['selected_imu_features']
         self.selected_opensim_labels = config['selected_opensim_labels']
-        self.augmentation_subset = config['augmentation_subset']
         self.dataset = []
 
     def load_dataset(self):
@@ -37,11 +41,6 @@ class LoadPickleDataSet:
         self.combine_sensors_features()
         self.imu = [y_val[self.selected_sensor_features].values for i, y_val in enumerate(imu)]
         del imu
-
-    def get_selected_emg(self):
-        emg = self.dataset['emg']
-        self.emg = [y_val[self.selected_opensim_labels].values for i, y_val in enumerate(emg)]
-        del emg
 
     def run_get_dataset(self):
         self.load_dataset()

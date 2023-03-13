@@ -3,7 +3,6 @@
   "dataset_path": "J:/CAMARGO_ET_AL_J_BIOMECH_DATASET/",
   "dl_dataset_path": "J:/CAMARGO_ET_AL_J_BIOMECH_DATASET/MiniDataset/",
   "dl_dataset": "levelgroundrampstair_imuik_AB06AB07AB08AB09AB10AB11AB12AB13AB14AB15AB16AB17AB18AB19AB20AB21AB23AB24AB25.p",
-  "gc_dataset": false,
   "selected_data_types": ["baseline"],
   "selected_data_status": ["imu"],
   "label_headers": ["Header", "Label", "subject", "trialType", "trialNum", "trialStarts", "trialEnds", "leadingLegStart", "leadingLegStop", "turn", "speed", "transLegAscent", "transLegDescent", "rampInclide", "stairHeight"],
@@ -23,17 +22,11 @@
   "resample": true,
   "opensim_filter": false,
   "imu_filter": false,
-  "augmentation_subset": false,
-  "rotation": false,
-  "gaussian_noise": false,
 
   "load_model": true,
   "save_model": false,
-  "use_pretrained_model": false,
   "freeze_model": false,
   "tuning": false,
-  "embedding_visualization": false,
-  "pca_plot": false,
   "individual_plot": false,
 
 
@@ -47,7 +40,7 @@
   "test_activity": ["levelground1","levelground2","rampascent", "rampdescent","stairascent","stairdescent"],
 
   "device": "cuda",
-  "model_name": "hernandez2021cnnlstm",
+  "model_name": "bilstm",
   "classification": false,
   "trainable_layers": ["fc1", "fc2_1", "fc2_2", "fc2_3"],
   "optimizer_name": "Adam",

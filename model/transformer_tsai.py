@@ -203,7 +203,6 @@ class TransformerTSAI(Module):
         # Positional encoding
         W_pos = torch.zeros((q_len, d_model), device=default_device())
         self.W_pos = nn.Parameter(W_pos, requires_grad=True)
-        #TODO
 
         # Residual dropout
         self.res_dropout = nn.Dropout(res_dropout)
@@ -218,9 +217,6 @@ class TransformerTSAI(Module):
         # FC dropout
         self.fc_dropout = nn.Dropout(fc_dropout)
 
-        # HEAD Classification
-        self.classification = classification
-        self.classifier = DecoderFC(self.c_out, self.head_nf)
         # HEADS Regression
         # 1) Linear Head: [bs , q_len , d_model] --> [bs , q_len , c_out]
         # self._linear = nn.Linear(d_model, c_out)
@@ -243,7 +239,6 @@ class TransformerTSAI(Module):
             self.fc2_2 = nn.Linear(output_size1, output_size2)
             self.fc2_3 = nn.Linear(output_size1, output_size2)
 
-
     def create_head(self, nf, c_out, fc_dropout=0., y_range=None, **kwargs):
         layers = [nn.Dropout(fc_dropout)] if fc_dropout else []
         layers += [nn.Linear(nf, c_out)]
@@ -262,7 +257,6 @@ class TransformerTSAI(Module):
             heads.append(self.create_head_block(c, input_length, output_length))
         return heads
 
-
     def forward(self, x:Tensor, mask:Optional[Tensor]=None) -> Tensor:  # x: [bs x nvars x q_len]
         x = x.permute(0,2,1)
         # Input encoding
@@ -274,9 +268,6 @@ class TransformerTSAI(Module):
         z = self.encoder(u)                                             # z: [bs x q_len x d_model]
         if self.flatten is not None: z = self.flatten(z)                # z: [bs x q_len * d_model]
 
-
-        # out = self._linear(z)
-        # out = self.fc1(out)
         out = self.fc_dropout(z)
         if self.c_out == 1:
             out1 = F.relu(out)
@@ -296,17 +287,5 @@ class TransformerTSAI(Module):
             out3 = F.relu(out)
             out3 = self.fc2_3(out3)
             out = [out1, out2, out3]
-        # output = self.dropout(output)
         regression_out = torch.stack(out, dim=0).permute(1, 2, 0)
-        if self.classification:
-            classifier_output = self.classifier(z)
-            out = [regression_out, classifier_output]
-            return out
-        else:
-            return regression_out
-        # z = self.encoder(u)                                             # z: [bs x q_len x d_model]
-        # if self.flatten is not None: z = self.flatten(z)                # z: [bs x q_len * d_model]
-        # else: z = z.transpose(2,1).contiguous()                         # z: [bs x d_model x q_len]
-        #
-        # # Classification/ Regression head
-        # return self.head(z)                                             # output: [bs x c_out]
+        return regression_out

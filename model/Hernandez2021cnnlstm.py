@@ -124,7 +124,6 @@ class Hernandez2021CNNLSTM(nn.Module):
         self.lstm_hidden_size = config['DecoderLSTM_hidden_size']
         self.lstm = DecoderLSTM(config)
         self.fc1 = nn.Linear(self.lstm_hidden_size, self.n_output)
-
         self.classifier = DecoderFC(config)
 
 
@@ -132,10 +131,4 @@ class Hernandez2021CNNLSTM(nn.Module):
         c_out = self.cnn(x)
         l_out = self.lstm(c_out)
         regression_out = self.fc1(l_out)
-
-        if self.classification:
-            classifier_output = self.classifier(c_out)
-            out = [regression_out, classifier_output]
-            return out
-        else:
-            return regression_out
+        return regression_out

@@ -1,6 +1,6 @@
 # BioMAT: An Open-Source Biomechanics Multi-Activity Transformer for Joint Kinematic Predictions using Wearable Sensors
 <p align="center">
-          <a href= "https://twitter.com/intent/tweet?text=PyTorch-VAE:%20Collection%20of%20VAE%20models%20in%20PyTorch.&url=https://github.com/MohsenSharifi1991/BioMAT">
+          <a href= "https://twitter.com/intent/tweet?text=BioMAT: An Open-Source Biomechanics Multi-Activity Transformer for Joint Kinematic Predictions using Wearable Sensors.&url=https://github.com/MohsenSharifi1991/BioMAT">
         <img src="https://img.shields.io/twitter/url/https/shields.io.svg?style=social" /></a>
 
 </p>

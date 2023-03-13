@@ -6,11 +6,11 @@
 </p>
 This repository includes the code for the BioMAT paper, which can be found at SensorLink. The repository has been influenced by the code found at https://github.com/timeseriesAI/tsai.
 
-## Table of Contents
-- [Installation](###installation)
-- [Dataset](###dataset)
-- [Runs](###runs)
-- [BioMat App](###BioMat App)
+### Table of Contents
+- [Installation](#installation)
+- [Dataset](#dataset)
+- [Runs](#runs)
+- [BioMat App](#BioMat_App)
 - [License](###license)
 
 ### Requirements
@@ -49,7 +49,7 @@ $ main_universal.py
 ```
 $ run_sweep.py
 ```
-### BioMAT APP
+### BioMAT App
 To run the biomat app on streamlit:
 ```
 $ streamlit run biomat.py

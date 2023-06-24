@@ -4,6 +4,7 @@
         <img src="https://img.shields.io/twitter/url/https/shields.io.svg?style=social" /></a>
           <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=https://github.com/MohsenSharifi1991/BioMAT&title=BioMAT: An Open-Source Biomechanics Multi-Activity Transformer for Joint Kinematic Predictions using Wearable Sensors&summary=This repository includes the code for the BioMAT paper&source=https://github.com/MohsenSharifi1991/BioMAT">LinkedIn</a>
 </p>
+
 This repository includes the code for the [BioMAT paper](https://www.mdpi.com/1424-8220/23/13/5778), which can be found at Sensor. The repository has been influenced by the code found at https://github.com/timeseriesAI/tsai.
 
 ### Table of Contents

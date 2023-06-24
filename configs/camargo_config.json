@@ -2,7 +2,7 @@
   "dataset_name": "camargo",
   "dataset_path": "J:/CAMARGO_ET_AL_J_BIOMECH_DATASET/",
   "dl_dataset_path": "J:/CAMARGO_ET_AL_J_BIOMECH_DATASET/MiniDataset/",
-  "dl_dataset": "levelgroundrampstair_imuik_AB06AB07AB08AB09AB10AB11AB12AB13AB14AB15AB16AB17AB18AB19AB20AB21AB23AB24AB25.p",
+  "dl_dataset": "BioMAT_Dataset.p",
   "selected_data_types": ["baseline"],
   "selected_data_status": ["imu"],
   "label_headers": ["Header", "Label", "subject", "trialType", "trialNum", "trialStarts", "trialEnds", "leadingLegStart", "leadingLegStop", "turn", "speed", "transLegAscent", "transLegDescent", "rampInclide", "stairHeight"],
@@ -38,7 +38,7 @@
   "test_activity": ["levelground1","levelground2","rampascent", "rampdescent","stairascent","stairdescent"],
 
   "device": "cuda",
-  "model_name": "bilstm",
+  "model_name": "transformertsai",
   "classification": false,
   "trainable_layers": ["fc1", "fc2_1", "fc2_2", "fc2_3"],
   "optimizer_name": "Adam",
